@@ -26,6 +26,7 @@ class UserController(Controller):
             "id": str(user.id),
             "username": user.username,
             "email": user.email,
+            "description": user.description,
             "created_at": user.created_at.isoformat() if user.created_at else None,
             "updated_at": user.updated_at.isoformat() if user.updated_at else None,
         }
@@ -42,6 +43,7 @@ class UserController(Controller):
                 "id": str(u.id),
                 "username": u.username,
                 "email": u.email,
+                "description": u.description,
                 "created_at": u.created_at.isoformat() if u.created_at else None,
                 "updated_at": u.updated_at.isoformat() if u.updated_at else None,
             }
