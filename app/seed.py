@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.models import User, Address
-
+from app.models import Address, User
 
 CONNECT_URL = "postgresql+psycopg2://postgres:postgres@localhost:5432/test_db"
 
@@ -10,7 +9,7 @@ CONNECT_URL = "postgresql+psycopg2://postgres:postgres@localhost:5432/test_db"
 def main() -> None:
     engine = create_engine(CONNECT_URL, echo=True)
 
-    SessionLocal = sessionmaker(bind=engine)
+    session_local = sessionmaker(bind=engine)
 
     users_data = [
         {
@@ -55,7 +54,7 @@ def main() -> None:
         },
     ]
 
-    with SessionLocal() as session:
+    with session_local() as session:
         for item in users_data:
             user = User(username=item["username"], email=item["email"])
             address = Address(

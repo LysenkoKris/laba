@@ -1,13 +1,13 @@
 from typing import Any
 from uuid import UUID
 
-from litestar import Controller, get, post, put, delete
-from litestar.params import Parameter
+from litestar import Controller, delete, get, post, put
 from litestar.exceptions import NotFoundException
+from litestar.params import Parameter
 
 from app.models import User
-from app.services.user_service import UserService
 from app.schemas.user import UserCreate, UserResponse
+from app.services.user_service import UserService
 
 
 class UserController(Controller):
@@ -30,7 +30,6 @@ class UserController(Controller):
             "created_at": user.created_at.isoformat() if user.created_at else None,
             "updated_at": user.updated_at.isoformat() if user.updated_at else None,
         }
-
 
     @get()
     async def get_all_users(
@@ -67,8 +66,8 @@ class UserController(Controller):
     async def update_user(
         self,
         user_service: UserService,
-        user_id: UUID,      # UUID вместо int
-        data: UserCreate,   # тело запроса, как в примере
+        user_id: UUID,  # UUID вместо int
+        data: UserCreate,  # тело запроса, как в примере
     ) -> UserResponse:
         """Обновление пользователя по UUID."""
 
@@ -88,4 +87,3 @@ class UserController(Controller):
         user_id: UUID,
     ) -> None:
         await user_service.delete(user_id)
-

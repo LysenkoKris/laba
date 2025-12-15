@@ -1,0 +1,27 @@
+[BASIC]
+init-hook='import sys; sys.path.append(".")'
+
+disable =
+    missing-function-docstring,
+    missing-module-docstring,
+    missing-class-docstring,
+    too-few-public-methods,
+    attribute-defined-outside-init,
+    wrong-import-order,
+    duplicate-code,
+    unused-import,
+    too-many-arguments,
+    import-outside-toplevel,
+
+ignore-paths =
+    deploy,
+    temp,
+    build,
+    tests,
+
+extension-pkg-whitelist =
+    pydantic,
+    orjson,
+
+generated-members =
+    [pydantic.PostgresDsn.build]

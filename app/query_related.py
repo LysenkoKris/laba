@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.models import User, Address
-
+from app.models import Address, User
 
 CONNECT_URL = "postgresql+psycopg2://postgres:postgres@localhost:5432/test_db"
 

@@ -1,8 +1,9 @@
-import pytest
 from unittest.mock import AsyncMock
 
-from app.services.user_service import UserService
+import pytest
+
 from app.schemas.user import UserCreate
+from app.services.user_service import UserService
 
 
 @pytest.mark.asyncio

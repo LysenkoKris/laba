@@ -24,3 +24,10 @@ migrations/versions/__pycache__/
 
 ~$*.docx
 ~$*.xlsx
+htmlcov/
+.coverage
+
+test.db
+
+*.pid
+*.log

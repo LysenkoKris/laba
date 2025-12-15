@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import select
 
-from app.models import User, Address, Order, Product
+from app.models import Address, Order, Product, User
 
 
 @pytest.mark.asyncio
@@ -44,9 +44,7 @@ async def test_user_address_relationship(session):
     await session.commit()
     await session.refresh(address)
 
-    result = await session.scalars(
-        select(Address).where(Address.user_id == user.id)
-    )
+    result = await session.scalars(select(Address).where(Address.user_id == user.id))
     addresses = result.all()
 
     assert len(addresses) == 1

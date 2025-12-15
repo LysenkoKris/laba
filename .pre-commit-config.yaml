@@ -1,0 +1,26 @@
+fail_fast: false
+
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black app tests
+        language: system
+        pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        entry: isort app tests
+        language: system
+        pass_filenames: false
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint app
+        language: system
+        pass_filenames: false

@@ -1,11 +1,11 @@
 from typing import Any, Sequence
 from uuid import UUID
 
-from sqlalchemy import select
 from sqlalchemy import delete as sa_delete
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models import User, Address, Order
+from app.models import Address, Order, User
 
 
 class UserRepository:
@@ -46,9 +46,7 @@ class UserRepository:
 
     async def delete(self, user_id: UUID) -> None:
         stmt_orders = sa_delete(Order).where(
-            Order.address_id.in_(
-                select(Address.id).where(Address.user_id == user_id)
-            )
+            Order.address_id.in_(select(Address.id).where(Address.user_id == user_id))
         )
         await self.session.execute(stmt_orders)
 

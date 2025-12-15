@@ -24,7 +24,9 @@ class User(Base):
     description: Mapped[str | None] = mapped_column(nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(nullable=False, default=datetime.now)
-    updated_at: Mapped[datetime] = mapped_column(nullable=False, default=datetime.now, onupdate=datetime.now)
+    updated_at: Mapped[datetime] = mapped_column(
+        nullable=False, default=datetime.now, onupdate=datetime.now
+    )
 
     addresses: Mapped[list["Address"]] = relationship(
         "Address",
@@ -54,12 +56,15 @@ class Address(Base):
     country: Mapped[str] = mapped_column(nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(nullable=False, default=datetime.now)
-    updated_at: Mapped[datetime] = mapped_column(nullable=False, default=datetime.now, onupdate=datetime.now)
+    updated_at: Mapped[datetime] = mapped_column(
+        nullable=False, default=datetime.now, onupdate=datetime.now
+    )
 
     user: Mapped[User] = relationship(
         "User",
         back_populates="addresses",
     )
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -72,6 +77,7 @@ class Product(Base):
 
     name: Mapped[str] = mapped_column(nullable=False, unique=True)
     price: Mapped[float] = mapped_column(nullable=False)
+
 
 class Order(Base):
     __tablename__ = "orders"

@@ -5,6 +5,7 @@ from app.models import User
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate
 
+
 class UserService:
     def __init__(self, user_repository: UserRepository) -> None:
         self.user_repository = user_repository
@@ -18,7 +19,9 @@ class UserService:
         page: int,
         **kwargs: Any,
     ) -> Sequence[User]:
-        return await self.user_repository.get_by_filter(count=count, page=page, **kwargs)
+        return await self.user_repository.get_by_filter(
+            count=count, page=page, **kwargs
+        )
 
     async def create(self, data: UserCreate) -> User:
         user = User(
