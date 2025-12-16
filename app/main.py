@@ -4,27 +4,11 @@ from litestar import Litestar
 from litestar.di import Provide
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.controllers.report_controller import ReportController
 from app.controllers.user_controller import UserController
+from app.db import async_session_factory, provide_db_session
 from app.repositories.user_repository import UserRepository
 from app.services.user_service import UserService
-
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+asyncpg://postgres:postgres@localhost:5432/test_db",
-)
-
-engine = create_async_engine(DATABASE_URL, echo=True)
-async_session_factory = async_sessionmaker(
-    engine, class_=AsyncSession, expire_on_commit=False
-)
-
-
-async def provide_db_session() -> AsyncSession:
-    async with async_session_factory() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
 
 
 async def provide_user_repository(db_session: AsyncSession) -> UserRepository:
@@ -36,7 +20,7 @@ async def provide_user_service(user_repository: UserRepository) -> UserService:
 
 
 app = Litestar(
-    route_handlers=[UserController],
+    route_handlers=[UserController, ReportController],
     dependencies={
         "db_session": Provide(provide_db_session),
         "user_repository": Provide(provide_user_repository),

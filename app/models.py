@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Date, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -107,3 +107,12 @@ class Order(Base):
     )
 
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
+
+
+class OrderReport(Base):
+    __tablename__ = "order_reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    report_at = Column(Date, nullable=False)
+    order_id = Column(UUID(as_uuid=True), ForeignKey("orders.id"), nullable=False)
+    count_product = Column(Integer, nullable=False)
