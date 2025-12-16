@@ -27,8 +27,8 @@ class UserController(Controller):
             "username": user.username,
             "email": user.email,
             "description": user.description,
-            "created_at": user.created_at.isoformat() if user.created_at else None,
-            "updated_at": user.updated_at.isoformat() if user.updated_at else None,
+            "created_at": str(user.created_at) if user.created_at else None,
+            "updated_at": str(user.updated_at) if user.updated_at else None,
         }
 
     @get()
