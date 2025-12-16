@@ -6,18 +6,13 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-# this is the Alembic Config object
 config = context.config
 
-# Interpret the config file for Python logging
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# !!! КЛЮЧЕВОЕ ИЗМЕНЕНИЕ !!!
-# Читаем DATABASE_URL из переменной окружения и переопределяем в config
 database_url = os.getenv("DATABASE_URL")
 if database_url:
-    # Для alembic меняем asyncpg на psycopg2 (синхронный драйвер)
     if "asyncpg" in database_url:
         database_url = database_url.replace("postgresql+asyncpg", "postgresql+psycopg2")
     config.set_main_option("sqlalchemy.url", database_url)
